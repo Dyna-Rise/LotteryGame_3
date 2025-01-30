@@ -52,14 +52,14 @@ public class SlotManager : MonoBehaviour
     //StartSlotメソッドまで作成できたらコメントアウトを解除
     IEnumerator StopReelsSequentially()
     {
-        Debug.Log("StopReelsSequentially");
+        //Debug.Log("StopReelsSequentially");
         yield return new WaitForSeconds(3.0f);
         yield return new WaitUntil(() => GameManager.isResult);
 
-        Debug.Log(reels.Length);
+        //Debug.Log(reels.Length);
         for (int i = 0; i < reels.Length; i++)
         {
-            Debug.Log("For");
+            //Debug.Log("For");
             float targetAngle = GameManager.resultIndex * (360f / optionData.option.prizeName.Length + 1); // 対応する角度を計算
             //float targetAngle = localResultIndex * (360f / optionData.option.prizeName.Length + 1); //仮値
             targetAngle -= 360.0f;
@@ -82,7 +82,7 @@ public class SlotManager : MonoBehaviour
     //StartSlotメソッドまで作成できたらコメントアウトを解除
      IEnumerator SlowStop(GameObject reel, float targetAngle)
     {
-        Debug.Log("SlowStop");
+        //Debug.Log("SlowStop");
         float currentAngle = reel.transform.rotation.eulerAngles.x;
         float difference = Mathf.DeltaAngle(currentAngle, targetAngle);
 
