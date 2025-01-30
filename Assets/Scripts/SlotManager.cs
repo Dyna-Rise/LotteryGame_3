@@ -10,13 +10,12 @@ public class SlotManager : MonoBehaviour
     public GameObject[] reels;
     public float spinSpeed = 1000.0f;
     public float stopDelay = 0.5f;
-    public int localResultIndex = 0;// （仮値）最終的にコメントアウト予定
+    //public int localResultIndex = 0;// （仮値）最終的にコメントアウト予定
     bool[] isPersonSpinning = { false, false, false };
     public OptionData optionData;
 
     private void Start()
     {
-        StartCoroutine(StopReelsSequentially());
     }
 
     private void Update()
@@ -44,6 +43,7 @@ public class SlotManager : MonoBehaviour
             {
                 isPersonSpinning[i] = true;
             }
+        StartCoroutine(StopReelsSequentially());
         }
     }
 
@@ -54,14 +54,14 @@ public class SlotManager : MonoBehaviour
     {
         Debug.Log("StopReelsSequentially");
         yield return new WaitForSeconds(3.0f);
-        //yield return new WaitUntil(() => GameManager.isResult);
+        yield return new WaitUntil(() => GameManager.isResult);
 
         Debug.Log(reels.Length);
         for (int i = 0; i < reels.Length; i++)
         {
             Debug.Log("For");
-            //float targetAngle = GameManager.resultIndex * (360f / optionData.option.prizeName.Length + 1); // 対応する角度を計算
-            float targetAngle = localResultIndex * (360f / optionData.option.prizeName.Length + 1); //仮値
+            float targetAngle = GameManager.resultIndex * (360f / optionData.option.prizeName.Length + 1); // 対応する角度を計算
+            //float targetAngle = localResultIndex * (360f / optionData.option.prizeName.Length + 1); //仮値
             targetAngle -= 360.0f;
             isPersonSpinning[i] = false;
 
@@ -74,8 +74,8 @@ public class SlotManager : MonoBehaviour
         GameManager.isLottery = false;
 
         // resultに結果を格納
-        //GameManager.result = optionData.option.prizeName[GameManager.resultIndex];
-        GameManager.result = optionData.option.prizeName[localResultIndex]; //仮値
+        GameManager.result = optionData.option.prizeName[GameManager.resultIndex];
+        //GameManager.result = optionData.option.prizeName[localResultIndex]; //仮値
 
     }
 
